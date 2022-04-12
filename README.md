@@ -1,2 +1,2 @@
 # gh-test
-Test of GitHub action
+Test of GitHub action: release-0.3
