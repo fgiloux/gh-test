@@ -1,0 +1,36 @@
+name: Test and test GH
+
+permissions:
+        packages: write
+
+on:
+        push:
+                branches:
+                        - main
+                        - 'release-*'
+
+jobs:
+        test-test:
+                if: github.repository_owner == 'fgiloux'
+                name: test test test
+                environment: test
+                runs-on: ubuntu-latest
+                steps:
+                        - uses: actions/checkout@v2
+                        - uses: actions/setup-go@v2
+                          with:
+                                  go-version: v1.17
+
+                        - name: Get the short sha
+                          id: vars
+                          run: echo "::set-output name=sha_short::$(echo ${{ github.sha }} | cut -b -7)"
+
+                        - name: Extract branch name
+                          shell: bash
+                          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+                          id: extract-branch
+
+                        - name: printout
+                          shell: bash
+                          run: echo "${{ steps.vars.outputs.sha_short }} ${{ steps.extract-branch.outputs.branch }}"
+                          id: printout
