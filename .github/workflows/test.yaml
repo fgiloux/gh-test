@@ -34,3 +34,7 @@ jobs:
                           shell: bash
                           run: echo "${{ steps.vars.outputs.sha_short }} ${{ steps.extract-branch.outputs.branch }}"
                           id: printout
+
+                        # Build and push an image, tagged with the commit SHA and the branch name.
+                        - uses: imjasonh/setup-ko@v0.4
+                        - run: ko publish ./app -t $(git rev-parse --short "$GITHUB_SHA"),${{ steps.extract-branch.outputs.branch }}
