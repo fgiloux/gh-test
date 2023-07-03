@@ -6,4 +6,5 @@ Test of GitHub action
     Something small enough to escape casual notice.
 
     commit 1
+    commit 2
 </details>
